@@ -1,0 +1,320 @@
+/* Estilos generales */
+*{ /* Seleccionamos todos los elementos de la página web */
+    padding: 0px; /* espacio entre el contenido y su border */
+    margin: 0px; /* espacio entre el border y el resto de elementos */
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+body{
+    background-color: #0F0F0F;
+    color: #D1D4D6;
+}
+
+/* Estilo para el <div> con id="logotipo" */
+#logotipo{
+    margin-left: 150px;
+    margin-right: 40px;
+    padding-top: 5px;
+    float:left;
+}
+
+/* Estilo para la imagen que hay dentro del div con id="logotipo" (LogoNetflix)*/
+#logotipo img{
+    width: 130px;
+    margin-top: 4px;
+}
+
+/* Estilos de la barra de navegación */
+nav{
+    display: block;
+    width: 1100px;
+    height: 70px;
+    margin: 0 auto; /* centrar horizontalmente */
+    font-size: 17px;
+}
+
+nav > ul > li {
+    height:  50px;
+    float: left;  /* para que los elementos de la lista se coloquen uno al lado del otro */
+    list-style: none; /* para eliminar los puntos de listado */
+    background-color: #0F0F0F;
+}
+/* Enlaces de la barra superior */
+nav > ul > li > a{
+    display: block;  /* para colocarlos como queramos */
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 18px;
+    padding-bottom: 10px;
+    color: #D1D4D6;
+}
+/* Para cuando pasamos el cursor/ratón sobre Enlaces barra superior */
+nav > ul > li > a:hover{
+   border-radius: 8px;
+   background: #363434;
+   box-shadow: 0px 0px 5px  #444 inset; /* los elementos del navegador se iluminan */
+   color: white; /* color de los enlaces */
+   transition: all 100ms; /* para que haya transición al pasar de un elemento a otro del navegador */
+}
+/* Estilos lista desplegable en Inicio  */
+nav > ul > li > ul{
+    display:none; /* para que se oculte cuando no estoy pasando el ratón por encima */
+    background: #363434;
+    position: absolute;
+    color: black;
+    text-align: left;
+    width:  120px;
+    box-shadow: 0px 2px 2px black;
+}
+/* Para que al pasar el ratón sobre Inicio aparezca: Películas, Series, Favoritos y Volver a ver */
+nav > ul > li:hover > ul{
+    display: block;
+    color: black;
+    margin: 0px;
+    list-style: none;
+}
+/* Películas, Series, Favoritos y Volver a ver */
+nav > ul > li:hover > ul > li{
+    border-radius: 8px;
+    background: #363434;
+    padding: 8px;
+    line-height: 25px;
+    font-size: 17px;
+    transition: all 100ms;
+}
+/* Cuando pasas por encima del enlace Películas, Series, Favoritos y Volver a ver */
+nav > ul > li:hover > ul > li:hover{
+    background-color: #8E8988;
+}
+/* Link a Películas, Series, Favoritos y Volver a ver */
+nav > ul > li:hover > ul > li > a{
+    color: #D1D4D6;
+    transition: all 100ms;
+}
+
+
+
+/* Estilos contenido central */
+.content{
+    margin: 40px;
+}
+
+.content h1{
+    font-size: 25px;
+    margin-left: 8px;
+}
+
+.content h2{
+    font-size: 20px;
+    margin-left: 15px;
+    margin-top: 8px;
+}
+
+
+/* Estilo formularios de registro y acceso y buscador */
+.register_login form{
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.register_login form input,
+.search input{
+    background-color: #D6C6D6;
+    border-radius: 8px;
+}
+
+.register_login form input,
+.register_login form label,
+.search input{
+    display: block;
+    padding: 5px;
+    padding-left: 0px;
+    font-size: 15px;
+}
+
+.search{
+    display:flex;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.search form input{
+    float: left; /* El input y button del buscado se colocan uno a la izq. del otro */
+}
+
+
+/* Estilo botones de registro, acceso, buscador y aplicar */
+.register_login button{
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 8px;
+    background-color: rgba(220, 0, 0, 1);
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    box-shadow:
+        inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+        inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.search button,
+.search form a .search_reset{
+    border: 0;
+    line-height: 2.2;
+    padding: 0 10px;
+    margin-left: 5px;
+    font-size: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 8px;
+    background-color: rgba(220, 0, 0, 1);
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    box-shadow:
+        inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+        inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.register_login button:hover,
+.search button:hover{
+   background: #A96912;
+}
+
+.back_button,
+.apply button{
+      border: 0;
+      line-height: 2.5;
+      padding: 0 20px;
+      font-size: 15px;
+      text-align: center;
+      color: #fff;
+      text-shadow: 1px 1px 1px #000;
+      border-radius: 8px;
+      background-color: rgba(220, 0, 0, 1);
+      background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+      box-shadow:
+        inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+        inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.back_button:hover,
+.apply button:hover{
+   background: #A96912;
+}
+
+
+/* Mensajes de error y confirmación */
+.alert-warning{
+    color: #ED2211;
+}
+
+.alert-success{
+    color: #12A924;
+}
+
+.seen_fav_message{
+    color: #34BF51;
+}
+
+.customed_messages{
+    margin-top: 30px;
+}
+
+
+/* Estilos para las películas, series y sus páginas individuales*/
+.item_structure{
+    width: 15%;
+    height: 420px;
+    float: left; /* se colocan una a la izquierda de la otra */
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-bottom: 40px;
+}
+
+.item_structure img{
+    width: 100%;
+    height: 310px;
+    border: 1px solid #5B5858;
+}
+
+.item_structure h3{
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.item_structure h4{
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+
+.item_structure_page{
+    width: 85%;
+    height: 520px;;
+    margin-left: 150px;
+    color: #D1D4D6;
+}
+
+.item_structure_page img{
+    width: 30%;
+    height: 520px;
+    border: 1px solid #5B5858;
+    float: left;  /* se coloca a la izquierda del resto */
+    margin-right: 20px;
+}
+
+.item_structure_page h3{
+    font-size: 34px;
+    margin-top: 10px;
+}
+
+.item_structure_page h4{
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.item_structure_page form{
+    font-size: 18px;
+}
+
+.checkboxes .save{
+    color: #34BF51;
+    margin-bottom: 7px;
+}
+
+.checkboxes .delete{
+    color: red;
+}
+
+.checkboxes{
+    float:left;
+    margin-right: 20px;
+}
+
+/* Estilos para los gráficos estadísticos*/
+.graph{
+    display:flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#statistics{
+    text-align: center;
+    font-size: 20px;
+}
+
+
+
+
+

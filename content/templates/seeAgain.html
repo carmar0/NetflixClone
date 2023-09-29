@@ -1,0 +1,49 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{title}}</h1>
+<hr/> <!-- separador -->
+<br/> <!-- Salto de linea -->
+
+<!-- Barra de búsqueda -->
+<div class="search">
+    <form method="GET" action="">
+        <input type="text" placeholder=" Buscar por título o género" name="buscar" autofocus value={{request.GET.buscar}}>
+        <!-- value={{request.GET.buscar}} para que no se borre la búsqueda al darle al submit -->
+        <!-- Si el usuario ha hecho una búsqueda -->
+        {% if search %}
+            <!-- Botón para volver a la página anterior con todas las películas y series Vistas -->
+            <a href="{% url 'see_again' %}"><input class="search_reset" type="button" value="Reiniciar búsqueda" /></a>
+        {% else %}
+            <button type="submit">Buscar</button>
+        {% endif %}
+    </form>
+</div>
+
+{% for content in seen_content %}
+    {% if content.category == "Película" %}
+    <div class="item_structure">
+        <div class="img">
+            <a href="{% url 'film_page' content.title 'back_to_seeAgain' %}"><img src="{{content.image.url}}" /></a>
+        </div>
+        <h3>{{content.title}}</h3>
+        <h4>{{content.release_date}} - {{content.time}} min</h4>
+        <h4>Género: {{content.genre}}</h4>
+    </div>
+    {% else %}
+    <div class="item_structure">
+        <div class="img">
+            <a href="{% url 'series_page' content.title 'back_to_seeAgain' %}"><img src="{{content.image.url}}" /></a>
+        </div>
+        <h3>{{content.title}}</h3>
+        <h4>{{content.release_date}}</h4>
+        <h4>{{content.seasons}} temporadas</h4>
+        <h4>{{content.episodes}} episodios - {{content.time}} min</h4>
+        <h4>Género: {{content.genre}}</h4>
+    </div>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

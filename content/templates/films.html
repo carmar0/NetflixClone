@@ -1,0 +1,38 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<hr/> <!-- separador -->
+<br/> <!-- Salto de linea -->
+
+<!-- Barra de búsqueda -->
+<div class="search">
+    <form method="GET" action="">
+        <input type="text" placeholder=" Buscar por título o género" name="buscar" autofocus value={{request.GET.buscar}}>
+        <!-- value={{request.GET.buscar}} para que no se borre la búsqueda al darle al submit -->
+        <!-- Si el usuario ha hecho una búsqueda -->
+        {% if search %}
+            <!-- Botón para volver a la página anterior con todas las películas -->
+            <a href="{% url 'films' %}"><input class="search_reset" type="button" value="Reiniciar búsqueda" /></a>
+        {% else %}
+            <button type="submit">Buscar</button>
+        {% endif %}
+    </form>
+</div>
+
+{% for film in films %}
+<div class="item_structure">
+    <div class="img">
+        <!-- La imagen de portada enlaza a la página individual de la película. Pasamos el título de esa película
+        (film.title) y el string 'back_to_films' por parámetro a través de la URL y se ejecuta la función
+         film_page(request, film_title, previous_url) con film_title = film.title y previous_url='back_to_films'-->
+        <a href="{% url 'film_page' film.title 'back_to_films' %}"><img src="{{film.image.url}}" /></a>
+    </div>
+    <h3>{{film.title}}</h3>
+    <h4>{{film.release_date}} - {{film.time}} min</h4>
+    <h4>Género: {{film.genre}}</h4>
+</div>
+{% endfor %}
+
+{% endblock %}

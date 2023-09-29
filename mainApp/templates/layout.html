@@ -1,0 +1,71 @@
+<!-- esta es la plantilla base que se usa en el resto de plantillas html-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- para que el navegador interprete correctamente el contenido de la página (sin errores de caracteres, etc.)-->
+    <meta charset="UTF-8">
+
+    <!-- importamos los ficheros css que tenemos dentro de la carpeta static -->
+    {% load static %}
+
+    <!-- Relacionamos este fichero html con la hoja de estilos css. En href usamos la función predeterminada static y
+    la ruta del fichero css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+    {% block head %}
+    <!--Aquí va el código de las templates específicas para cada vista-->
+    {% endblock %}
+</head>
+
+<body>
+<!-- Cabecera de la página -->
+<header>
+    <div id="logotipo">
+        <!-- Logo Netflix -->
+        <img src="{% static 'images/LogoNetflix.png' %}"/>
+    </div>
+</header>
+
+<!-- Agrupamos los enlaces de navegación por la página web -->
+<nav>
+    <!-- Lista no ordenada. Su resultado no varía si se altera el orden de los items listados <li> -->
+    <ul>
+        <li>
+            <a href="{% url 'index' %}">Inicio</a>
+            <ul>
+                <!-- Si el usuario ha iniciado sesión, puede acceder a las siguientes páginas/vistas -->
+                {% if user.email %}
+                <li> <a href="{% url 'films' %}">Películas</a> </li>
+                <li> <a href="{% url 'series' %}">Series</a> </li>
+                <li> <a href="{% url 'favorites' %}">Favoritos</a> </li>
+                <li> <a href="{% url 'see_again' %}">Volver a ver</a> </li>
+                {% endif %}
+            </ul>
+        </li>
+
+        <li> <a href="{% url 'register' %}">Registrarse</a> </li>
+
+        <li> <a href="{% url 'login' %}">Acceder</a> </li>
+
+        {% if user.email %}
+            <li> <a href="{% url 'logout' %}">Cerrar sesión</a> </li>
+
+            <li> <a href="{% url 'statistics' %}">Estadísticas</a> </li>
+
+            <!-- Si es el admin -->
+            {% if user.is_superuser %}
+                <li> <a href="{% url 'admin' %}">Panel Admin</a> </li>
+            {% endif %}
+        {% endif %}
+    </ul>
+</nav>
+
+<div class="content">
+    {% block content %}
+    <!--Aquí va el código de las templates específicas para cada vista-->
+    {% endblock %}
+</div>
+
+</body>
+
+</html>

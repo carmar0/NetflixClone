@@ -1,0 +1,41 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<hr/> <!-- separador -->
+<br/> <!-- Salto de linea -->
+
+<!-- Barra de búsqueda -->
+<div class="search">
+    <form method="GET" action="">
+        <input type="text" placeholder=" Buscar por título o género" name="buscar" autofocus value={{request.GET.buscar}}>
+        <!-- value={{request.GET.buscar}} para que no se borre la búsqueda al darle al submit -->
+        <!-- Si el usuario ha hecho una búsqueda -->
+        {% if search %}
+            <!-- Botón para volver a la página anterior con todas las series -->
+            <a href="{% url 'series' %}"><input class="search_reset" type="button" value="Reiniciar búsqueda" /></a>
+        {% else %}
+            <button type="submit">Buscar</button>
+        {% endif %}
+    </form>
+</div>
+
+{% for serie in series %}
+<div class="item_structure">
+    <div class="img">
+        <!-- La imagen de portada enlaza a la página individual de la serie. Pasamos el título de esa serie
+        (serie.title) y el string 'back_to_series' por parámetro a través de la URL y se ejecuta la
+        función/vista series_page(request, series_title, previous_url) con series_title = serie.title y
+        previous_url='back_to_series' -->
+        <a href="{% url 'series_page' serie.title 'back_to_series' %}"><img src="{{serie.image.url}}" /></a>
+    </div>
+    <h3>{{serie.title}}</h3>
+    <h4>{{serie.release_date}}</h4>
+    <h4>{{serie.seasons}} temporadas</h4>
+    <h4>{{serie.episodes}} episodios - {{serie.time}} min</h4>
+    <h4>Género: {{serie.genre}}</h4>
+</div>
+{% endfor %}
+
+{% endblock %}

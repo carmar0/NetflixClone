@@ -1,0 +1,152 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block head %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<hr/> <!-- separador -->
+<br/> <!-- Salto de linea -->
+
+<!-- Si es el admin -->
+{% if user.is_superuser %}
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+    </p>
+    </figure>
+    <script type="application/javascript">
+    Highcharts.chart('container', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Número total de películas y series vistas por usuario',
+                align: 'center'
+            },
+            xAxis: {
+                categories: {{clients_username|safe}},
+                title: {
+                    text: null
+                },
+                gridLineWidth: 1,
+                lineWidth: 0,
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Unidades',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                },
+                gridLineWidth: 0
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: '15%',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    groupPadding: 0.1
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Películas',
+                data: {{clients_seen_films}}
+            }, {
+                name: 'Series',
+                data: {{clients_seen_series}}
+            }]
+         });
+    </script>
+    <br/>
+    <br/>
+    <br/>
+    <figure class="highcharts-figure">
+    <div id="container2"></div>
+    <p class="highcharts-description">
+    </p>
+    </figure>
+    <script type="application/javascript">
+    Highcharts.chart('container2', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Tiempo total de horas visualizado por usuario',
+                align: 'center'
+            },
+            xAxis: {
+                categories: {{clients_username|safe}},
+                title: {
+                    text: null
+                },
+                gridLineWidth: 1,
+                lineWidth: 0
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Horas',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                },
+                gridLineWidth: 0
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: '15%',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    groupPadding: 0.1
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Películas',
+                data: {{clients_time_seen_films}}
+            }, {
+                name: 'Series',
+                data: {{clients_time_seen_series}}
+            }]
+         });
+    </script>
+
+<!-- Si es un cliente -->
+{% else %}
+    <div class="graph">
+        <img src="data:image/png;base64,{{graph}}" alt="Matplotlib Graph" class="blog-image">
+    </div>
+
+    <div class="graph">
+        <img src="data:image/png;base64,{{graph2}}" alt="Matplotlib Graph" class="blog-image">
+    </div>
+
+    <div id="statistics">
+        <h3>Has empleado {{time_seen_series}} horas en ver {{seen_series}} series.</h3>
+        <br/>
+        <h3>Has empleado {{time_seen_films}} horas en ver {{seen_films}} películas.</h3>
+    </div>
+{% endif %}
+
+{% endblock %}

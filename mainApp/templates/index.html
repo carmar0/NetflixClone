@@ -1,0 +1,17 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{title}}</h1>
+<hr/> <!-- separador -->
+<br/> <!-- Salto de linea -->
+
+<!-- Si el usuario ha iniciado sesión -->
+{% if user.email %}
+    <h2>¡Bienvenido {{request.user.username}}! Disfruta de todo tu contenido</h2>
+{% else %}
+    <h2>¡Bienvenido a Netflix! Accede con tu cuenta para ver todo el contenido</h2>
+{% endif %}
+
+{% endblock %}

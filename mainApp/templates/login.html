@@ -1,0 +1,37 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<br/>
+
+<!-- si el usuario se identifica mal y saltan los mensajes de error -->
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <div class="alert alert-warning">
+        {{message}}
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="register_login">
+    <!-- formulario de inicio de sesión (nombre de usuario y contraseña) -->
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <label for="username">Nombre de usuario</label>
+        <input type="text" name="username" autofocus/>
+        <!-- con autofocus el cursor se posiciona en ese campo al cargar la pantalla-->
+
+        <label for="password">Contraseña</label>
+        <input type="password" name="password"/>
+
+        <br/>
+        <button type="submit">Iniciar sesión</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<br/>
+
+<!-- Mostramos los errores que aparezcan durante el registro de un usuario (si se rellena mal un campo del formulario) -->
+<div class="alert-warning">
+    {{register_form.errors}}
+</div>
+
+<div class="register_login">
+    <form method="post" action="">
+        {% csrf_token %}
+        {% for field in register_form %}
+            <label>{{field.label}}</label>
+            {{field}}
+        {% endfor %}
+        <br/>
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
+<br/>
+
+<!--Si el usuario se ha registrado con éxito, aparece el mensaje de confirmación -->
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert-success">
+        {{message}}
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

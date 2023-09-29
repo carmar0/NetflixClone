@@ -1,0 +1,79 @@
+<!-- Importamos la plantilla base layout.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="item_structure_page">
+    <img src="{{series.image.url}}"/>
+    <h3>{{series.title}}</h3>
+    <br/>
+    <h4>Año de estreno: {{series.release_date}}</h4>
+    <h4>Temporadas: {{series.seasons}}</h4>
+    <h4>Episodios: {{series.episodes}}</h4>
+    <h4>Duración: {{series.time}} min</h4>
+    <h4>Género: {{series.genre}}</h4>
+    <br/>
+    <h4>Sinopsis: {{series.description|safe}}</h4>
+    <!-- Necesario el |safe para que coja bien el formato html de la edición de la sinopsis
+    en el panel de administración-->
+    <br/>
+
+    <form method="POST" action="">
+        <!-- action="" para que al presionar el botón submit redirija a la misma url que contiene el formulario y al mismo
+        tiempo envía a esa dirección los datos que contiene el formulario-->
+        {% csrf_token %}
+        <div class="checkboxes">
+            <div class="save">
+                <input type="checkbox" name="seen_check" id="cbox1"> <label for="cbox1">Marcar como Visto</label>
+            </div>
+            <div class="delete">
+                <input type="checkbox" name="notSeen_check" id="cbox2"> <label for="cbox2">Eliminar de Visto</label>
+            </div>
+        </div>
+
+        <div class="checkboxes">
+            <div class="save">
+                <input type="checkbox" name="favorite_check" id="cbox3"> <label for="cbox3">Guardar en Favoritos</label>
+            </div>
+            <div class="delete">
+                <input type="checkbox" name="notFavorite_check" id="cbox4"> <label for="cbox4">Eliminar de Favoritos</label>
+            </div>
+        </div>
+
+        <div class="apply">
+            <button type="submit">Aplicar</button>
+        </div>
+    </form>
+    <br/>
+
+    <!-- si el usuario rellena mal el formulario y salta el mensaje de error -->
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <div class="alert alert-warning">
+            {{message}}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="customed_messages">
+        {% for element in customed %}
+            {% if element.seen %}
+                <div class="seen_fav_message">
+                    <h4>Ya has visto esta película</h4>
+                </div>
+            {% endif %}
+            {% if element.favorite %}
+                <div class="seen_fav_message">
+                    <h4>Película guardada en Favoritos</h4>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+<br/>
+<!-- botón para volver a la página anterior -->
+<a href={{back_url}}><input class="back_button" type="button" value="Volver" /></a>
+{% endblock %}
